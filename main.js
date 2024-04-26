@@ -1,19 +1,33 @@
+  let color = 'black';
+  let click = 'true';
+
 function populateBoard(size) {
   let board = document.querySelector('.board');
-  board.style.gridTemplateColumns = `repeat(${size}, 1frs)`;
-  board.style.gridTemplateRows = `repeat(${size}, 1frs)`;
-  
-  for (let i = 0; i < 256; i++) {
+  let squares = board.querySelectorAll('div');
+  squares.forEach((div) => div.remove());
+  board.style.gridTemplateColumns = `repeat(${size} , 1fr)`;
+  board.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
+  let amount = size * size;
+  for (let i = 0; i < amount; i++) {
     let square = document.createElement("div");
-    square.style.backgroundColor = 'blue';
+    square.addEventListener('mouseover', colorSquare);
+    square.style.backgroundColor = 'white';
     board.insertAdjacentElement('beforeend', square);
   }
 }
+
 populateBoard(16);
 
 function changeSize (input) {
-populateBoard(input);
+if (input >= 2 && input <= 100) {
+  document.querySelector('.error').style.display = 'none';
+  populateBoard(input);
+} else {
+  document.querySelector('.error').style.display = 'flex';
+  }
 }
+
 
 
 
